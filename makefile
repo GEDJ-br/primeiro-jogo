@@ -53,7 +53,7 @@ LINKFLAGS = $(SDLFLAGS) $(TESTFLAGS)
 # ======== main ========
 MAINDIR = src
 
-UTILSDIR = utils
+# UTILSDIR = utils
 
 ifeq ($(MAKECMDGOALS),test)
 	TESTSDIR = tests
@@ -92,7 +92,7 @@ ifeq ($(MAKECMDGOALS),exec)
 	MAINFILES = $(wildcard $(MAINDIR)/*.cpp)
 endif
 
-UTILSFILES = $(wildcard $(UTILSDIR)/*.cpp)
+# UTILSFILES = $(wildcard $(UTILSDIR)/*.cpp)
 HELPERSFILES = $(wildcard $(HELPERSDIR)/*.cpp)
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -100,12 +100,12 @@ HELPERSFILES = $(wildcard $(HELPERSDIR)/*.cpp)
 #--------------------------------------------------------------------------
 #   Dependencias dos .o
 MAINDEPS := $(addprefix $(MAINDIR)/$(DEPDIR)/,$(patsubst %.cpp,%.d,$(notdir $(MAINFILES))))
-UTILSDEPS := $(addprefix $(UTILSDIR)/$(DEPDIR)/,$(patsubst %.cpp,%.d,$(notdir $(UTILSFILES))))
+# UTILSDEPS := $(addprefix $(UTILSDIR)/$(DEPDIR)/,$(patsubst %.cpp,%.d,$(notdir $(UTILSFILES))))
 TESTSDEPS := $(addprefix $(TESTSDIR)/$(DEPDIR)/,$(patsubst %.cpp,%.d,$(notdir $(TESTSFILES))))
 
 #   Dependencias dos .d
 MAINDEPDEPS := $(subst .d,$(DEPSUFFIX).d,$(MAINDEPS))
-UTILSDEPDEPS := $(subst .d,$(DEPSUFFIX).d,$(UTILSDEPS))
+# UTILSDEPDEPS := $(subst .d,$(DEPSUFFIX).d,$(UTILSDEPS))
 TESTSDEPDEPS := $(subst .d,$(DEPSUFFIX).d,$(TESTSDEPS))
 
 ALLDEPDEPS :=	$(MAINDEPDEPS) $(UTILSDEPDEPS) $(TESTSDEPDEPS)
@@ -114,7 +114,7 @@ ALLDEPDEPS :=	$(MAINDEPDEPS) $(UTILSDEPDEPS) $(TESTSDEPDEPS)
 # Object Lists
 #--------------------------------------------------------------------------
 MAINOBJS := $(addprefix $(MAINDIR)/$(OBJDIR)/,$(patsubst %.cpp,%.o,$(notdir $(MAINFILES))))
-UTILSOBJS := $(addprefix $(UTILSDIR)/$(OBJDIR)/,$(patsubst %.cpp,%.o,$(notdir $(UTILSFILES))))
+# UTILSOBJS := $(addprefix $(UTILSDIR)/$(OBJDIR)/,$(patsubst %.cpp,%.o,$(notdir $(UTILSFILES))))
 TESTSOBJS := $(addprefix $(TESTSDIR)/$(OBJDIR)/,$(patsubst %.cpp,%.o,$(notdir $(TESTSFILES))))
 
 ALLOBJS :=	$(MAINOBJS) $(UTILSOBJS) $(TESTSOBJS)
