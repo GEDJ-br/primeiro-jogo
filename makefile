@@ -53,13 +53,13 @@ LINKFLAGS = $(SDLFLAGS) $(TESTFLAGS)
 # ======== main ========
 MAINDIR = src
 
-# UTILSDIR = utils
+ENGINEDIR = engine
 
 ifeq ($(MAKECMDGOALS),test)
 	TESTSDIR = tests
-	_ALLSRCDIRLIST = $(MAINDIR) $(UTILSDIR) $(TESTSDIR)
+	_ALLSRCDIRLIST = $(MAINDIR) $(ENGINEDIR) $(TESTSDIR)
 else
-	_ALLSRCDIRLIST = $(MAINDIR) $(UTILSDIR)
+	_ALLSRCDIRLIST = $(MAINDIR) $(ENGINEDIR)
 endif
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -92,7 +92,7 @@ ifeq ($(MAKECMDGOALS),exec)
 	MAINFILES = $(wildcard $(MAINDIR)/*.cpp)
 endif
 
-# UTILSFILES = $(wildcard $(UTILSDIR)/*.cpp)
+ENGINEFILES = $(wildcard $(ENGINEDIR)/*.cpp)
 HELPERSFILES = $(wildcard $(HELPERSDIR)/*.cpp)
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -100,24 +100,24 @@ HELPERSFILES = $(wildcard $(HELPERSDIR)/*.cpp)
 #--------------------------------------------------------------------------
 #   Dependencias dos .o
 MAINDEPS := $(addprefix $(MAINDIR)/$(DEPDIR)/,$(patsubst %.cpp,%.d,$(notdir $(MAINFILES))))
-# UTILSDEPS := $(addprefix $(UTILSDIR)/$(DEPDIR)/,$(patsubst %.cpp,%.d,$(notdir $(UTILSFILES))))
+ENGINEDEPS := $(addprefix $(ENGINEDIR)/$(DEPDIR)/,$(patsubst %.cpp,%.d,$(notdir $(ENGINEFILES))))
 TESTSDEPS := $(addprefix $(TESTSDIR)/$(DEPDIR)/,$(patsubst %.cpp,%.d,$(notdir $(TESTSFILES))))
 
 #   Dependencias dos .d
 MAINDEPDEPS := $(subst .d,$(DEPSUFFIX).d,$(MAINDEPS))
-# UTILSDEPDEPS := $(subst .d,$(DEPSUFFIX).d,$(UTILSDEPS))
+ENGINEDEPDEPS := $(subst .d,$(DEPSUFFIX).d,$(ENGINEDEPS))
 TESTSDEPDEPS := $(subst .d,$(DEPSUFFIX).d,$(TESTSDEPS))
 
-ALLDEPDEPS :=	$(MAINDEPDEPS) $(UTILSDEPDEPS) $(TESTSDEPDEPS)
+ALLDEPDEPS :=	$(MAINDEPDEPS) $(ENGINEDEPDEPS) $(TESTSDEPDEPS)
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Object Lists
 #--------------------------------------------------------------------------
 MAINOBJS := $(addprefix $(MAINDIR)/$(OBJDIR)/,$(patsubst %.cpp,%.o,$(notdir $(MAINFILES))))
-# UTILSOBJS := $(addprefix $(UTILSDIR)/$(OBJDIR)/,$(patsubst %.cpp,%.o,$(notdir $(UTILSFILES))))
+ENGINEOBJS := $(addprefix $(ENGINEDIR)/$(OBJDIR)/,$(patsubst %.cpp,%.o,$(notdir $(ENGINEFILES))))
 TESTSOBJS := $(addprefix $(TESTSDIR)/$(OBJDIR)/,$(patsubst %.cpp,%.o,$(notdir $(TESTSFILES))))
 
-ALLOBJS :=	$(MAINOBJS) $(UTILSOBJS) $(TESTSOBJS)
+ALLOBJS :=	$(MAINOBJS) $(ENGINEOBJS) $(TESTSOBJS)
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Executable
